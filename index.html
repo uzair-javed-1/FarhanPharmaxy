@@ -3,963 +3,419 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Farhan Pharmacy — trusted care, Rawalpindi</title>
-  <!-- Fonts & basic styling -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@300..800&display=swap" rel="stylesheet">
+  <title>Farhan Pharmacy — premium care · Rawalpindi</title>
+  <!-- Tailwind via CDN + necessary extras -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- custom font & subtle plugin extensions -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font awesome 6 (free) for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Inter", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-      background: #fcfcf9;
-      color: #1e2a3a;
-      line-height: 1.5;
-      scroll-behavior: smooth;
-    }
-
-    /* consistent spacing scale */
-    :root {
-      --space-xs: 0.5rem;   /* 8px */
-      --space-sm: 1rem;      /* 16px */
-      --space-md: 1.5rem;    /* 24px */
-      --space-lg: 2.5rem;    /* 40px */
-      --space-xl: 4rem;      /* 64px */
-      --primary: #0b6e4f;    /* deep teal */
-      --primary-light: #e2f0ea;
-      --primary-soft: #d1e9e0;
-      --accent: #c78d4b;     /* warm gold */
-      --gray-100: #f4f6fa;
-      --gray-200: #e7eaf0;
-      --gray-400: #9aa6b5;
-      --gray-600: #4f5b6b;
-      --gray-800: #1e2a3a;
-      --white: #ffffff;
-      --shadow-sm: 0 4px 12px rgba(0,20,10,0.04);
-      --shadow-md: 0 12px 32px rgba(0,30,20,0.06);
-      --shadow-lg: 0 24px 56px -8px rgba(0,45,30,0.14);
-      --radius-md: 20px;
-      --radius-lg: 32px;
-    }
-
-    /* layout helpers */
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 var(--space-lg);
-    }
-
-    /* fully responsive nav – mobile first */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(11,110,79,0.08);
-      padding: 0.75rem var(--space-lg);
-    }
-
-    .nav-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--space-md);
-    }
-
-    .logo-block {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-      flex-shrink: 0;
-    }
-
-    .logo-mark {
-      width: 44px;
-      height: 44px;
-      background: var(--primary);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 600;
-      font-size: 1.5rem;
-      box-shadow: 0 10px 18px -6px rgba(11,110,79,0.3);
-    }
-
-    .logo-text h2 {
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--gray-800);
-      line-height: 1.2;
-    }
-
-    .logo-text span {
-      font-size: 0.7rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      color: var(--primary);
-      letter-spacing: 0.3px;
-    }
-
-    /* desktop navigation (hidden on mobile) */
-    .nav-links {
-      display: flex;
-      gap: var(--space-md);
-      list-style: none;
-      margin: 0;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.95rem;
-      color: var(--gray-600);
-      transition: color 0.2s;
-      padding: 0.5rem 0;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-
-    /* right side actions */
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-      flex-shrink: 0;
-    }
-
-    .wa-link {
-      background: #25D366;
-      color: white;
-      padding: 0.7rem 1.2rem;
-      border-radius: 60px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.85rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 8px 16px -6px rgba(37,211,102,0.24);
-      transition: 0.2s;
-      white-space: nowrap;
-    }
-
-    .wa-link:hover {
-      background: #20b859;
-      transform: translateY(-2px);
-    }
-
-    .consult-btn {
-      background: var(--gray-800);
-      color: white;
-      padding: 0.7rem 1.4rem;
-      border-radius: 60px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.85rem;
-      white-space: nowrap;
-      transition: 0.2s;
-    }
-
-    .consult-btn:hover {
-      background: var(--primary);
-    }
-
-    /* mobile menu toggle (hidden on desktop) */
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.5rem;
-    }
-
-    .menu-toggle span {
-      width: 24px;
-      height: 2px;
-      background: var(--gray-800);
-      border-radius: 4px;
-      transition: 0.2s;
-    }
-
-    /* responsive media queries */
-    @media (max-width: 1024px) {
-      .container { padding: 0 var(--space-md); }
-      .navbar { padding: 0.75rem var(--space-md); }
-    }
-
-    @media (max-width: 820px) {
-      .nav-links { display: none; }   /* hide desktop menu */
-      .menu-toggle { display: flex; }  /* show burger */
-      .consult-btn { display: none; }  /* hide consult on small, keep wa */
-      .wa-link { padding: 0.6rem 1rem; font-size: 0.8rem; }
-    }
-
-    @media (max-width: 480px) {
-      .logo-text h2 { font-size: 1.1rem; }
-      .logo-mark { width: 38px; height: 38px; font-size: 1.2rem; }
-      .wa-link span { display: none; }  /* hide "WhatsApp" text, keep icon + number */
-      .wa-link::before { content: "💬"; margin-right: 4px; }
-      .navbar { padding: 0.5rem var(--space-sm); }
-    }
-
-    /* hero – clean, aligned, equal gaps */
-    .hero {
-      background: linear-gradient(145deg, #f5faf8 0%, #ffffff 80%);
-      padding: var(--space-xl) 0;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-xl);
-      align-items: center;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.4rem, 5vw, 3.6rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      color: var(--gray-800);
-      margin-bottom: var(--space-md);
-    }
-
-    .hero h1 em {
-      color: var(--primary);
-      font-style: normal;
-      border-bottom: 4px solid var(--primary-soft);
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--gray-600);
-      max-width: 520px;
-      margin-bottom: var(--space-lg);
-    }
-
-    .hero-stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-lg);
-      margin-top: var(--space-md);
-    }
-
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .stat-number {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--gray-800);
-      line-height: 1.2;
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--gray-400);
-    }
-
-    .hero-right {
-      background: var(--white);
-      padding: var(--space-lg);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--primary-soft);
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-md);
-    }
-
-    .feature-card {
-      display: flex;
-      gap: var(--space-sm);
-      align-items: flex-start;
-      padding-bottom: var(--space-md);
-      border-bottom: 1px solid var(--gray-200);
-    }
-
-    .feature-card:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .feat-icon {
-      width: 52px;
-      height: 52px;
-      background: var(--primary-light);
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      flex-shrink: 0;
-    }
-
-    .feat-content h4 {
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 4px;
-    }
-
-    .feat-content p {
-      color: var(--gray-600);
-      font-size: 0.9rem;
-      margin-bottom: 0;
-    }
-
-    .btn-group {
-      display: flex;
-      gap: var(--space-sm);
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-      padding: 0.9rem 2rem;
-      border-radius: 60px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      box-shadow: 0 12px 20px -10px rgba(11,110,79,0.4);
-      transition: 0.2s;
-      display: inline-block;
-    }
-
-    .btn-primary:hover {
-      background: #095a41;
-      transform: scale(1.02);
-    }
-
-    .btn-outline {
-      border: 1.5px solid var(--gray-400);
-      background: transparent;
-      color: var(--gray-800);
-      padding: 0.9rem 2rem;
-      border-radius: 60px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: 0.2s;
-      display: inline-block;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--primary);
-      background: var(--primary-light);
-    }
-
-    /* section headers – consistent spacing */
-    .section-header {
-      margin-bottom: var(--space-lg);
-    }
-
-    .section-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--primary);
-      font-weight: 600;
-      margin-bottom: var(--space-xs);
-    }
-
-    .section-title {
-      font-size: clamp(2rem, 4vw, 2.6rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--gray-800);
-      max-width: 600px;
-    }
-
-    .section-title em {
-      color: var(--primary);
-      font-style: normal;
-    }
-
-    /* cards grid – equal gap & consistent sizing */
-    .grid-3, .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-md);
-    }
-
-    .grid-4 {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .card {
-      background: var(--white);
-      border-radius: var(--radius-md);
-      padding: var(--space-lg);
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--gray-200);
-      transition: 0.25s ease;
-    }
-
-    .card:hover {
-      box-shadow: var(--shadow-md);
-      border-color: var(--primary-soft);
-    }
-
-    .card .icon {
-      width: 56px;
-      height: 56px;
-      background: var(--primary-light);
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      margin-bottom: var(--space-md);
-    }
-
-    .card h3 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: var(--space-xs);
-    }
-
-    .card p {
-      color: var(--gray-600);
-      font-size: 0.9rem;
-      margin-bottom: var(--space-md);
-    }
-
-    .card-link {
-      color: var(--primary);
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    /* product cards inside strip */
-    .strip {
-      background: var(--gray-800);
-      color: white;
-      padding: var(--space-xl) 0;
-    }
-
-    .product-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: var(--radius-md);
-      padding: var(--space-md);
-      transition: 0.2s;
-    }
-
-    .product-card:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: var(--primary);
-    }
-
-    .product-badge {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.4px;
-      padding: 0.3rem 0.8rem;
-      border-radius: 40px;
-      display: inline-block;
-      margin-bottom: var(--space-sm);
-    }
-
-    .badge-hot { background: rgba(239,68,68,0.15); color: #fca5a5; }
-    .badge-new { background: rgba(11,110,79,0.2); color: #a7f3d0; }
-
-    .product-title {
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-    }
-
-    .product-meta {
-      color: rgba(255,255,255,0.5);
-      font-size: 0.8rem;
-      margin-bottom: var(--space-sm);
-    }
-
-    .product-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: var(--space-sm);
-    }
-
-    .price {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .add-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 40px;
-      background: var(--primary);
-      border: none;
-      color: white;
-      font-size: 1.4rem;
-      cursor: pointer;
-      transition: 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .add-btn:hover {
-      background: #095a41;
-    }
-
-    /* why us layout */
-    .split-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-xl);
-      align-items: center;
-    }
-
-    .point-list {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-md);
-    }
-
-    .point-item {
-      display: flex;
-      gap: var(--space-md);
-      align-items: flex-start;
-    }
-
-    .point-num {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--primary);
-      min-width: 32px;
-    }
-
-    .point-text h4 {
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .point-text p {
-      color: var(--gray-600);
-      font-size: 0.9rem;
-    }
-
-    /* location grid */
-    .loc-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-xl);
-    }
-
-    .info-card {
-      background: white;
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius-md);
-      padding: var(--space-md);
-      display: flex;
-      gap: var(--space-sm);
-      align-items: center;
-    }
-
-    .info-icon {
-      width: 56px;
-      height: 56px;
-      background: var(--primary-light);
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      flex-shrink: 0;
-    }
-
-    .map-container {
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-lg);
-      height: 380px;
+    /* tiny extra tweaks — keeping it almost all tailwind */
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    h1, h2, h3, .font-syne { font-family: 'Syne', sans-serif; }
+    @keyframes gentle-float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-8px) scale(1.01); }
+    }
+    .animate-float { animation: gentle-float 6s ease-in-out infinite; }
+    .animate-float-delay { animation: gentle-float 7s 1s ease-in-out infinite; }
+    /* custom gradient underline */
+    .gradient-underline {
+      position: relative;
+    }
+    .gradient-underline::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #0f5c4b, #d4af37);
+      transition: width 0.3s ease;
+    }
+    .gradient-underline:hover::after {
       width: 100%;
     }
-
-    .map-container iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
+    /* reveal on scroll (intersection observer) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.2,0.9,0.3,1), transform 0.8s cubic-bezier(0.2,0.9,0.3,1);
     }
-
-    /* contact form */
-    .form-card {
-      background: white;
-      border-radius: var(--radius-lg);
-      padding: var(--space-lg);
-      box-shadow: var(--shadow-md);
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
-
-    .input-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-sm);
-      margin-bottom: var(--space-sm);
-    }
-
-    .field {
-      margin-bottom: var(--space-sm);
-    }
-
-    .field label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--gray-600);
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .field input, .field select, .field textarea {
-      width: 100%;
-      padding: 0.9rem 1rem;
-      border: 1.5px solid var(--gray-200);
-      border-radius: 16px;
-      font-family: inherit;
-      font-size: 0.9rem;
-      transition: 0.2s;
-    }
-
-    .field input:focus, .field select:focus, .field textarea:focus {
-      border-color: var(--primary);
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(11,110,79,0.1);
-    }
-
-    .submit-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 40px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: 0.2s;
-      width: 100%;
-    }
-
-    .submit-btn:hover {
-      background: #095a41;
-    }
-
-    /* footer */
-    .footer {
-      background: var(--gray-800);
-      color: white;
-      padding: var(--space-xl) 0 var(--space-lg);
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: var(--space-lg);
-      margin-bottom: var(--space-xl);
-    }
-
-    .footer-col p {
-      color: rgba(255,255,255,0.5);
-      font-size: 0.85rem;
-      max-width: 280px;
-      margin: var(--space-sm) 0;
-    }
-
-    .footer-col h4 {
-      font-weight: 600;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: var(--space-md);
-    }
-
-    .footer-col ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-    }
-
-    .footer-col ul a {
-      color: rgba(255,255,255,0.6);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: 0.2s;
-    }
-
-    .footer-col ul a:hover {
-      color: white;
-    }
-
-    .copyright {
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: var(--space-md);
-      display: flex;
-      justify-content: space-between;
-      color: rgba(255,255,255,0.3);
-      font-size: 0.8rem;
-      flex-wrap: wrap;
-      gap: var(--space-sm);
-    }
-
-    /* responsiveness for grids */
-    @media (max-width: 1024px) {
-      .grid-4 { grid-template-columns: repeat(2,1fr); }
-      .hero-grid, .split-layout, .loc-grid, .footer-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
-    }
-
-    @media (max-width: 700px) {
-      .grid-3 { grid-template-columns: 1fr; }
-      .grid-4 { grid-template-columns: 1fr; }
-      .input-group { grid-template-columns: 1fr; }
-    }
-
-    /* utility */
-    .mt-2 { margin-top: var(--space-lg); }
-    .mb-1 { margin-bottom: var(--space-md); }
-    .text-center { text-align: center; }
-    .bg-white { background: white; }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
   </style>
 </head>
-<body>
+<body class="bg-[#f5f7fa] text-[#0d1b2a] antialiased">
 
-<!-- fully responsive nav -->
-<nav class="navbar">
-  <div class="nav-container">
-    <div class="logo-block">
-      <div class="logo-mark">F</div>
-      <div class="logo-text">
-        <h2>Farhan Pharmacy</h2>
-        <span>Rawalpindi · est. 2005</span>
+  <!-- modern navigation – fully responsive, tailwind classes -->
+  <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[#d4af37]/20 px-6 md:px-12 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <!-- logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 bg-gradient-to-br from-[#1b4d3e] to-[#0f5c4b] rounded-2xl flex items-center justify-center text-2xl font-bold text-[#d4af37] shadow-xl shadow-emerald-900/20 group-hover:-rotate-3 transition-transform duration-300">
+          F
+        </div>
+        <div class="leading-tight">
+          <h2 class="font-syne font-bold text-xl text-[#0d1b2a]">Farhan Pharmacy</h2>
+          <span class="text-[0.65rem] tracking-[0.2em] uppercase text-[#0f5c4b] font-medium">Rawalpindi · est.2005</span>
+        </div>
+      </a>
+
+      <!-- desktop menu (hidden on mobile) -->
+      <ul class="hidden lg:flex items-center gap-10 text-sm font-medium">
+        <li><a href="#services" class="gradient-underline text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1">Services</a></li>
+        <li><a href="#products" class="gradient-underline text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1">Products</a></li>
+        <li><a href="#about" class="gradient-underline text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1">About</a></li>
+        <li><a href="#location" class="gradient-underline text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1">Location</a></li>
+        <li><a href="#contact" class="gradient-underline text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1">Contact</a></li>
+      </ul>
+
+      <!-- right actions -->
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/923100878897" target="_blank" class="hidden sm:flex items-center gap-2 bg-[#25D366] text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-green-500/30 hover:shadow-xl hover:-translate-y-1 transition-all">
+          <i class="fab fa-whatsapp text-lg"></i> <span>0310-0878897</span>
+        </a>
+        <a href="#contact" class="hidden md:block border-2 border-[#0d1b2a] text-[#0d1b2a] px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-[#0d1b2a] hover:text-white transition-all shadow-sm">
+          Consult
+        </a>
+        <!-- mobile menu icon (just placeholder for demo) -->
+        <button class="lg:hidden text-2xl text-[#0d1b2a]">
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
     </div>
+  </nav>
 
-    <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#products">Products</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#location">Location</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-
-    <div class="nav-actions">
-      <a href="https://wa.me/923100878897" target="_blank" class="wa-link"><span>WhatsApp</span> 0310-0878897</a>
-      <a href="#contact" class="consult-btn">Consult</a>
+  <!-- HERO section – premium fancy layout -->
+  <section class="relative overflow-hidden pt-20 pb-28 md:py-32 bg-gradient-to-br from-white via-[#f5f7fa] to-white">
+    <!-- abstract glowing circles -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-20 left-1/4 w-96 h-96 bg-emerald-700/5 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 right-1/4 w-80 h-80 bg-amber-600/5 rounded-full blur-3xl"></div>
     </div>
 
-    <button class="menu-toggle" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- left -->
+        <div class="reveal visible"> <!-- visible for demo, normally js handles -->
+          <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs tracking-widest font-semibold px-4 py-2 rounded-full mb-8">
+            <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span></span>
+            OPEN NOW · KAINAT STOP, RAWALPINDI
+          </div>
+          <h1 class="font-syne font-extrabold text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-[#0d1b2a]">
+            Precision care <br/>for <span class="bg-gradient-to-r from-[#0f5c4b] to-[#d4af37] bg-clip-text text-transparent">every</span> prescription
+          </h1>
+          <p class="text-lg text-[#4a5b6e] max-w-xl mt-8 leading-relaxed">
+            Farhan Pharmacy — certified medicines, expert pharmacists, and same‑day home delivery across Rawalpindi. Trusted since 2005.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-10">
+            <a href="#products" class="bg-gradient-to-r from-[#1b4d3e] to-[#0f5c4b] text-white px-8 py-4 rounded-full font-semibold shadow-xl shadow-emerald-900/30 hover:shadow-2xl hover:-translate-y-1 transition-all">
+              Browse medicines <i class="fas fa-arrow-right ml-2 text-sm"></i>
+            </a>
+            <a href="https://wa.me/923100878897" target="_blank" class="border border-[#0f5c4b]/30 text-[#0d1b2a] px-8 py-4 rounded-full font-semibold hover:bg-[#0f5c4b] hover:text-white hover:border-transparent transition-all">
+              <i class="fab fa-whatsapp mr-2"></i>WhatsApp order
+            </a>
+          </div>
+          <!-- trust badges -->
+          <div class="flex gap-12 mt-16">
+            <div><span class="font-syne font-bold text-3xl text-[#0d1b2a]">18+</span><span class="block text-xs tracking-widest text-[#4a5b6e] uppercase">years trusted</span></div>
+            <div><span class="font-syne font-bold text-3xl text-[#0d1b2a]">5k+</span><span class="block text-xs tracking-widest text-[#4a5b6e] uppercase">products</span></div>
+            <div><span class="font-syne font-bold text-3xl text-[#0d1b2a]">50k+</span><span class="block text-xs tracking-widest text-[#4a5b6e] uppercase">families</span></div>
+            <div><span class="font-syne font-bold text-3xl text-[#0d1b2a]">4.9★</span><span class="block text-xs tracking-widest text-[#4a5b6e] uppercase">rating</span></div>
+          </div>
+        </div>
 
-<!-- hero section – clean spacing, equal gap -->
-<section class="hero">
-  <div class="container hero-grid">
-    <div>
-      <div class="section-label">🟢 open now · kainat stop</div>
-      <h1>Precision care for <em>every prescription</em></h1>
-      <p>Farhan Pharmacy – certified medicines, expert pharmacists, and same‑day home delivery across Rawalpindi. Trusted since 2005.</p>
-      <div class="btn-group">
-        <a href="#products" class="btn-primary">Browse medicines</a>
-        <a href="https://wa.me/923100878897" target="_blank" class="btn-outline">Order via WhatsApp →</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-item"><span class="stat-number">18+</span><span class="stat-label">years trusted</span></div>
-        <div class="stat-item"><span class="stat-number">5k+</span><span class="stat-label">products</span></div>
-        <div class="stat-item"><span class="stat-number">50k+</span><span class="stat-label">families</span></div>
-        <div class="stat-item"><span class="stat-number">4.9★</span><span class="stat-label">rating</span></div>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="feature-card">
-        <div class="feat-icon">🏥</div>
-        <div class="feat-content">
-          <h4>DRAP licensed pharmacy</h4>
-          <p>Government certified · every medicine verified</p>
+        <!-- right - fancy card with floating elements -->
+        <div class="relative lg:ml-10">
+          <div class="bg-white/70 backdrop-blur-xl border border-[#d4af37]/20 rounded-[40px] p-8 shadow-2xl animate-float">
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl text-[#0f5c4b] border border-emerald-200">🏥</div>
+                <div><h4 class="font-syne font-bold text-xl">DRAP licensed</h4><p class="text-[#4a5b6e]">Government certified · every medicine verified</p></div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl text-[#0f5c4b] border border-emerald-200">🚚</div>
+                <div><h4 class="font-syne font-bold text-xl">Same‑day delivery</h4><p class="text-[#4a5b6e]">Rawalpindi‑wide, often within 2 hours</p></div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl text-[#0f5c4b] border border-emerald-200">⏰</div>
+                <div><h4 class="font-syne font-bold text-xl">8 AM – midnight · 7 days</h4><p class="text-[#4a5b6e]">WhatsApp orders 24/7</p></div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl text-[#0f5c4b] border border-emerald-200">💬</div>
+                <div><h4 class="font-syne font-bold text-xl">WhatsApp direct</h4><p class="text-[#4a5b6e]"><span class="font-bold text-[#0d1b2a]">0310-0878897</span> – send prescription</p></div>
+              </div>
+            </div>
+          </div>
+          <!-- floating extra badge -->
+          <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl px-6 py-4 shadow-xl border border-[#d4af37]/30 flex items-center gap-3 animate-float-delay">
+            <div class="w-3 h-3 bg-emerald-600 rounded-full animate-pulse"></div>
+            <span class="font-semibold text-sm">100% genuine guarantee</span>
+          </div>
         </div>
       </div>
-      <div class="feature-card">
-        <div class="feat-icon">🚚</div>
-        <div class="feat-content">
-          <h4>Same‑day delivery</h4>
-          <p>Rawalpindi‑wide, often within 2 hours</p>
+    </div>
+  </section>
+
+  <!-- SERVICES section -->
+  <section id="services" class="py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="text-center max-w-3xl mx-auto reveal">
+        <span class="text-emerald-700 text-sm tracking-[0.3em] font-semibold uppercase">our services</span>
+        <h2 class="font-syne font-bold text-4xl md:text-5xl mt-4 mb-6">Complete <span class="text-[#0f5c4b]">healthcare</span> under one roof</h2>
+        <p class="text-[#4a5b6e] text-lg">From critical prescriptions to daily wellness – every service built around your health.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
+        <!-- card 1 -->
+        <div class="bg-[#f5f7fa] p-10 rounded-3xl border border-[#d4af37]/10 hover:shadow-2xl transition-all group reveal delay-1">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald-50 to-amber-50 rounded-2xl flex items-center justify-center text-3xl mb-6 text-[#0f5c4b] group-hover:scale-110 transition-transform">💊</div>
+          <h3 class="font-syne font-bold text-2xl mb-3">Prescription medicines</h3>
+          <p class="text-[#4a5b6e] mb-6">All branded/generic drugs, verified by pharmacists – zero errors.</p>
+          <a href="#" class="text-[#0f5c4b] font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">Learn more <i class="fas fa-arrow-right text-sm"></i></a>
+        </div>
+        <!-- 2 -->
+        <div class="bg-[#f5f7fa] p-10 rounded-3xl border border-[#d4af37]/10 hover:shadow-2xl transition-all group reveal delay-2">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald-50 to-amber-50 rounded-2xl flex items-center justify-center text-3xl mb-6 text-[#0f5c4b] group-hover:scale-110 transition-transform">🩺</div>
+          <h3 class="font-syne font-bold text-2xl mb-3">Expert consultation</h3>
+          <p class="text-[#4a5b6e] mb-6">Free advice on dosage, interactions, side effects.</p>
+          <a href="#" class="text-[#0f5c4b] font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">Book now <i class="fas fa-arrow-right text-sm"></i></a>
+        </div>
+        <!-- 3 -->
+        <div class="bg-[#f5f7fa] p-10 rounded-3xl border border-[#d4af37]/10 hover:shadow-2xl transition-all group reveal delay-3">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald-50 to-amber-50 rounded-2xl flex items-center justify-center text-3xl mb-6 text-[#0f5c4b] group-hover:scale-110 transition-transform">🚚</div>
+          <h3 class="font-syne font-bold text-2xl mb-3">Home delivery</h3>
+          <p class="text-[#4a5b6e] mb-6">Same‑day across Rawalpindi via WhatsApp.</p>
+          <a href="https://wa.me/923100878897" class="text-[#0f5c4b] font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">Order now <i class="fas fa-arrow-right text-sm"></i></a>
+        </div>
+        <!-- 4 -->
+        <div class="bg-[#f5f7fa] p-10 rounded-3xl border border-[#d4af37]/10 hover:shadow-2xl transition-all group reveal delay-1">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald-50 to-amber-50 rounded-2xl flex items-center justify-center text-3xl mb-6 text-[#0f5c4b] group-hover:scale-110 transition-transform">🌿</div>
+          <h3 class="font-syne font-bold text-2xl mb-3">Herbal & supplements</h3>
+          <p class="text-[#4a5b6e] mb-6">Vitamins, minerals & holistic wellness.</p>
+          <a href="#" class="text-[#0f5c4b] font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">Browse <i class="fas fa-arrow-right text-sm"></i></a>
+        </div>
+        <!-- 5 -->
+        <div class="bg-[#f5f7fa] p-10 rounded-3xl border border-[#d4af37]/10 hover:shadow-2xl transition-all group reveal delay-2">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald-50 to-amber-50 rounded-2xl flex items-center justify-center text-3xl mb-6 text-[#0f5c4b] group-hover:scale-110 transition-transform">🩹</div>
+          <h3 class="font-syne font-bold text-2xl mb-3">Surgical supplies</h3>
+          <p class="text-[#4a5b6e] mb-6">First‑aid, monitors, gloves, dressings.</p>
+          <a href="#" class="text-[#0f5c4b] font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">View stock <i class="fas fa-arrow-right text-sm"></i></a>
+        </div>
+        <!-- 6 -->
+        <div class="bg-[#f5f7fa] p-10 rounded-3xl border border-[#d4af37]/10 hover:shadow-2xl transition-all group reveal delay-3">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald-50 to-amber-50 rounded-2xl flex items-center justify-center text-3xl mb-6 text-[#0f5c4b] group-hover:scale-110 transition-transform">👶</div>
+          <h3 class="font-syne font-bold text-2xl mb-3">Mother & child</h3>
+          <p class="text-[#4a5b6e] mb-6">Infant nutrition, prenatal, pediatric care.</p>
+          <a href="#" class="text-[#0f5c4b] font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">Explore <i class="fas fa-arrow-right text-sm"></i></a>
         </div>
       </div>
-      <div class="feature-card">
-        <div class="feat-icon">🕐</div>
-        <div class="feat-content">
-          <h4>8 AM – midnight · 7 days</h4>
-          <p>WhatsApp orders 24/7</p>
+    </div>
+  </section>
+
+  <!-- PRODUCTS strip (dark fancy) -->
+  <section id="products" class="py-28 bg-[#0d1b2a] text-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMzAgMTBhMjAgMjAgMCAwIDEgMjAgMjAgMjAgMjAgMCAwIDEtNDAgMCAyMCAyMCAwIDAgMSAyMC0yMHoiIGZpbGw9InJnYmEoMjEyLCAxNzUsIDU1LCAwLjAyKSIvPjwvc3ZnPg==')] opacity-20"></div>
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative">
+      <div class="flex flex-wrap justify-between items-end gap-6 mb-16">
+        <div>
+          <span class="text-amber-400/70 text-sm tracking-[0.3em] uppercase">featured products</span>
+          <h2 class="font-syne font-bold text-4xl md:text-5xl mt-2">Essential <span class="text-[#d4af37]">medicines</span></h2>
+        </div>
+        <a href="#" class="text-[#d4af37] font-semibold flex items-center gap-2 hover:gap-3 transition-all">Full inventory <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- product 1 -->
+        <div class="bg-white/5 border border-white/10 backdrop-blur-sm p-6 rounded-3xl hover:bg-white/10 transition-all group">
+          <span class="text-xs font-bold px-3 py-1 bg-red-500/20 text-red-300 rounded-full inline-block mb-4">🔥 BESTSELLER</span>
+          <h3 class="font-syne font-bold text-xl mb-1">Paracetamol 500mg</h3>
+          <p class="text-white/40 text-sm mb-4">strip of 10</p>
+          <div class="flex items-center justify-between">
+            <span class="text-2xl font-bold text-[#d4af37]">Rs45</span>
+            <button class="w-10 h-10 bg-[#0f5c4b] rounded-full text-white text-xl hover:bg-[#d4af37] transition-colors"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+        <!-- product 2 -->
+        <div class="bg-white/5 border border-white/10 backdrop-blur-sm p-6 rounded-3xl hover:bg-white/10 transition-all">
+          <span class="text-xs font-bold px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full inline-block mb-4">🌿 NATURAL</span>
+          <h3 class="font-syne font-bold text-xl mb-1">Vitamin C 1000mg</h3>
+          <p class="text-white/40 text-sm mb-4">30 effervescent</p>
+          <div class="flex items-center justify-between">
+            <span class="text-2xl font-bold text-[#d4af37]">Rs350</span>
+            <button class="w-10 h-10 bg-[#0f5c4b] rounded-full text-white text-xl hover:bg-[#d4af37] transition-colors"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+        <!-- product 3 -->
+        <div class="bg-white/5 border border-white/10 backdrop-blur-sm p-6 rounded-3xl hover:bg-white/10 transition-all">
+          <span class="text-xs font-bold px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full inline-block mb-4">🩺 DEVICE</span>
+          <h3 class="font-syne font-bold text-xl mb-1">BP monitor digital</h3>
+          <p class="text-white/40 text-sm mb-4">automatic</p>
+          <div class="flex items-center justify-between">
+            <span class="text-2xl font-bold text-[#d4af37]">Rs2,800</span>
+            <button class="w-10 h-10 bg-[#0f5c4b] rounded-full text-white text-xl hover:bg-[#d4af37] transition-colors"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+        <!-- product 4 -->
+        <div class="bg-white/5 border border-white/10 backdrop-blur-sm p-6 rounded-3xl hover:bg-white/10 transition-all">
+          <span class="text-xs font-bold px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full inline-block mb-4">⚡ NEW</span>
+          <h3 class="font-syne font-bold text-xl mb-1">Multivitamin Plus</h3>
+          <p class="text-white/40 text-sm mb-4">60 capsules</p>
+          <div class="flex items-center justify-between">
+            <span class="text-2xl font-bold text-[#d4af37]">Rs650</span>
+            <button class="w-10 h-10 bg-[#0f5c4b] rounded-full text-white text-xl hover:bg-[#d4af37] transition-colors"><i class="fas fa-plus"></i></button>
+          </div>
         </div>
       </div>
-      <div class="feature-card">
-        <div class="feat-icon">💬</div>
-        <div class="feat-content">
-          <h4>WhatsApp direct</h4>
-          <p><strong>0310-0878897</strong> – send your prescription</p>
+    </div>
+  </section>
+
+  <!-- ABOUT / WHY US -->
+  <section id="about" class="py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="reveal">
+          <span class="text-emerald-700 text-sm tracking-[0.3em] font-semibold uppercase">why choose us</span>
+          <h2 class="font-syne font-bold text-4xl md:text-5xl mt-4 mb-6">Beyond medicine — a health <span class="text-[#0f5c4b]">partnership</span></h2>
+          <p class="text-[#4a5b6e] text-lg mb-10">18 years of genuine care, expert counsel & transparency – because your health deserves nothing less.</p>
+          <div class="space-y-8">
+            <div class="flex gap-5 items-start">
+              <span class="font-syne font-bold text-3xl text-[#0f5c4b]/30">01</span>
+              <div><h4 class="font-syne font-bold text-xl">100% genuine medicines</h4><p class="text-[#4a5b6e]">DRAP‑licensed batch verification, zero counterfeits.</p></div>
+            </div>
+            <div class="flex gap-5 items-start">
+              <span class="font-syne font-bold text-3xl text-[#0f5c4b]/30">02</span>
+              <div><h4 class="font-syne font-bold text-xl">Certified pharmacists on‑site</h4><p class="text-[#4a5b6e]">Every prescription reviewed for safety.</p></div>
+            </div>
+            <div class="flex gap-5 items-start">
+              <span class="font-syne font-bold text-3xl text-[#0f5c4b]/30">03</span>
+              <div><h4 class="font-syne font-bold text-xl">Same‑day WhatsApp delivery</h4><p class="text-[#4a5b6e]">2‑hour service across Rawalpindi.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-[#0d1b2a] text-white p-12 rounded-[48px] shadow-2xl reveal delay-2">
+          <div class="inline-block bg-emerald-800/40 px-5 py-2 rounded-full text-sm font-semibold border border-emerald-700/30 mb-6">✅ DRAP licensed · ISO</div>
+          <h3 class="font-syne font-bold text-3xl md:text-4xl leading-tight">Trusted by 50,000+ families in Rawalpindi</h3>
+          <div class="mt-8 flex gap-10">
+            <div><span class="font-syne font-bold text-4xl text-[#d4af37]">2005</span><p class="text-white/50 text-sm">established</p></div>
+            <div><span class="font-syne font-bold text-4xl text-[#d4af37]">4.9★</span><p class="text-white/50 text-sm">2,400+ reviews</p></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- services -->
-<section class="container" id="services" style="padding: var(--space-xl) 0;">
-  <div class="section-header">
-    <div class="section-label">our services</div>
-    <h2 class="section-title">Complete <em>healthcare</em> under one roof</h2>
-  </div>
-  <div class="grid-3">
-    <div class="card"><div class="icon">💊</div><h3>Prescription</h3><p>All branded/generic drugs, verified by pharmacists.</p><a href="#" class="card-link">Learn more →</a></div>
-    <div class="card"><div class="icon">🩺</div><h3>Expert consultation</h3><p>Free advice on dosage, interactions & side effects.</p><a href="#" class="card-link">Book now →</a></div>
-    <div class="card"><div class="icon">🚚</div><h3>Home delivery</h3><p>Same‑day across Rawalpindi via WhatsApp order.</p><a href="https://wa.me/923100878897" class="card-link">Order now →</a></div>
-    <div class="card"><div class="icon">🌿</div><h3>Herbal & supplements</h3><p>Vitamins, minerals & holistic wellness.</p><a href="#" class="card-link">Browse →</a></div>
-    <div class="card"><div class="icon">🩹</div><h3>Surgical supplies</h3><p>First‑aid, monitors, gloves, dressings.</p><a href="#" class="card-link">View stock →</a></div>
-    <div class="card"><div class="icon">👶</div><h3>Mother & child</h3><p>Infant nutrition, prenatal, pediatric care.</p><a href="#" class="card-link">Explore →</a></div>
-  </div>
-</section>
-
-<!-- products strip -->
-<div class="strip" id="products">
-  <div class="container">
-    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--space-lg);">
-      <div>
-        <div class="section-label" style="color: rgba(255,255,255,0.4);">featured products</div>
-        <h2 class="section-title" style="color:white;">Essential <em>medicines</em></h2>
+  <!-- LOCATION + MAP -->
+  <section id="location" class="py-28 bg-[#f5f7fa]">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="text-center max-w-3xl mx-auto reveal">
+        <span class="text-emerald-700 text-sm tracking-[0.3em] font-semibold uppercase">visit us</span>
+        <h2 class="font-syne font-bold text-4xl md:text-5xl mt-4 mb-6">Find our <span class="text-[#0f5c4b]">store</span></h2>
       </div>
-      <a href="#" class="card-link" style="color: var(--accent);">full inventory →</a>
-    </div>
-    <div class="grid-4">
-      <div class="product-card"><span class="product-badge badge-hot">🔥 BESTSELLER</span><div class="product-title">Paracetamol 500mg</div><div class="product-meta">strip of 10</div><div class="product-footer"><span class="price">Rs45</span><button class="add-btn">+</button></div></div>
-      <div class="product-card"><span class="product-badge badge-new">🌿 NATURAL</span><div class="product-title">Vitamin C 1000mg</div><div class="product-meta">30 effervescent</div><div class="product-footer"><span class="price">Rs350</span><button class="add-btn">+</button></div></div>
-      <div class="product-card"><span class="product-badge badge-hot">🩺 DEVICE</span><div class="product-title">BP monitor digital</div><div class="product-meta">automatic</div><div class="product-footer"><span class="price">Rs2,800</span><button class="add-btn">+</button></div></div>
-      <div class="product-card"><span class="product-badge badge-new">⚡ NEW</span><div class="product-title">Multivitamin Plus</div><div class="product-meta">60 capsules</div><div class="product-footer"><span class="price">Rs650</span><button class="add-btn">+</button></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- why us / about -->
-<section class="container" id="about" style="padding: var(--space-xl) 0;">
-  <div class="split-layout">
-    <div>
-      <div class="section-label">why choose us</div>
-      <h2 class="section-title">Beyond medicine — a health <em>partnership</em></h2>
-      <p style="color: var(--gray-600); margin: var(--space-md) 0 var(--space-lg);">18 years of genuine care, expert counsel & transparency.</p>
-      <div class="point-list">
-        <div class="point-item"><span class="point-num">01</span><div class="point-text"><h4>100% genuine medicines</h4><p>DRAP-licensed batch verification, zero counterfeits.</p></div></div>
-        <div class="point-item"><span class="point-num">02</span><div class="point-text"><h4>Certified pharmacists on‑site</h4><p>Every prescription reviewed for safety.</p></div></div>
-        <div class="point-item"><span class="point-num">03</span><div class="point-text"><h4>Same‑day WhatsApp delivery</h4><p>2‑hour service across Rawalpindi.</p></div></div>
-        <div class="point-item"><span class="point-num">04</span><div class="point-text"><h4>Government MRP always</h4><p>No overcharging, loyalty benefits.</p></div></div>
+      <div class="grid lg:grid-cols-2 gap-12 mt-16">
+        <div class="space-y-4 reveal">
+          <div class="bg-white p-6 rounded-3xl shadow-lg flex items-center gap-5">
+            <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl text-[#0f5c4b]">📍</div>
+            <div><h4 class="font-syne font-bold text-lg">Address</h4><p class="text-[#4a5b6e]">Near Kainat Bus Stop, Rawalpindi</p><a href="#" class="text-[#0f5c4b] text-sm font-semibold inline-block mt-1">Open map →</a></div>
+          </div>
+          <div class="bg-white p-6 rounded-3xl shadow-lg flex items-center gap-5">
+            <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl text-[#0f5c4b]">💬</div>
+            <div><h4 class="font-syne font-bold text-lg">WhatsApp / phone</h4><p class="text-xl font-bold text-[#0d1b2a]">0310-0878897</p><a href="https://wa.me/923100878897" class="text-[#25D366] font-semibold text-sm">Chat now →</a></div>
+          </div>
+          <div class="bg-white p-6 rounded-3xl shadow-lg flex items-center gap-5">
+            <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl text-[#0f5c4b]">⏰</div>
+            <div><h4 class="font-syne font-bold text-lg">Hours</h4><p class="text-[#4a5b6e]">8 AM – midnight · 7 days <br/><span class="text-emerald-700 text-sm font-semibold">24/7 WhatsApp orders</span></p></div>
+          </div>
+        </div>
+        <div class="rounded-[40px] overflow-hidden shadow-2xl h-[400px] reveal delay-2">
+          <iframe src="https://maps.google.com/maps?q=Kainat+Bus+Stop+Rawalpindi+Pakistan&output=embed" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
       </div>
     </div>
-    <div style="background: var(--gray-800); border-radius: var(--radius-lg); padding: var(--space-lg); color: white;">
-      <div style="background: rgba(11,110,79,0.2); display: inline-block; padding: 0.5rem 1rem; border-radius: 40px; font-size:0.8rem; margin-bottom:1rem;">✅ DRAP licensed</div>
-      <h3 style="font-size:1.8rem; font-weight:600; line-height:1.2;">Trusted by 50,000+ families in Rawalpindi</h3>
-      <p style="color: rgba(255,255,255,0.5); margin-top:1rem;">Est. 2005 · 4.9★ from 2,400+ reviews</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- location -->
-<section class="container" id="location" style="padding: var(--space-xl) 0;">
-  <div class="section-header">
-    <div class="section-label">visit us</div>
-    <h2 class="section-title">Find our <em>store</em></h2>
-  </div>
-  <div class="loc-grid">
-    <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
-      <div class="info-card"><div class="info-icon">📍</div><div><h4>Address</h4><p>Near Kainat Bus Stop, Rawalpindi</p><a href="#" style="color:var(--primary);">Open map →</a></div></div>
-      <div class="info-card"><div class="info-icon" style="background:#25D36620;">💬</div><div><h4>WhatsApp / phone</h4><p><strong style="font-size:1.1rem;">0310-0878897</strong></p><a class="wa-link" href="https://wa.me/923100878897" style="margin-top:6px; display:inline-block;">💬 Order on WhatsApp</a></div></div>
-      <div class="info-card"><div class="info-icon">⏰</div><div><h4>Hours</h4><p>8 AM – midnight · 7 days<br><span style="color:var(--primary);">24/7 WhatsApp orders</span></p></div></div>
-      <div class="info-card"><div class="info-icon">🚚</div><div><h4>Free delivery</h4><p>Same‑day across Rawalpindi</p></div></div>
-    </div>
-    <div class="map-container">
-      <iframe src="https://maps.google.com/maps?q=Kainat+Bus+Stop+Rawalpindi+Pakistan&output=embed"></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- contact form -->
-<section class="container" id="contact" style="padding: var(--space-xl) 0 var(--space-xl);">
-  <div class="split-layout">
-    <div>
-      <div class="section-label">get in touch</div>
-      <h2 class="section-title">Send us a <em>message</em></h2>
-      <p style="color:var(--gray-600); margin:1rem 0 2rem;">Medicine query, prescription check, or delivery – we reply within 30 min.</p>
-      <div style="display:flex; flex-direction:column; gap:1rem;">
-        <div style="display:flex; gap:1rem;"><span style="background:var(--primary-light); padding:0.6rem 1rem; border-radius:40px;">⚡ response < 30min</span><span style="background:var(--primary-light); padding:0.6rem 1rem; border-radius:40px;">🔒 private & secure</span></div>
-        <div style="display:flex; gap:1rem;"><span style="background:var(--primary-light); padding:0.6rem 1rem; border-radius:40px;">🧑‍⚕️ reviewed by pharmacist</span><span style="background:var(--primary-light); padding:0.6rem 1rem; border-radius:40px;">💬 0310-0878897</span></div>
+  <!-- CONTACT + form -->
+  <section id="contact" class="py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="reveal">
+          <span class="text-emerald-700 text-sm tracking-[0.3em] font-semibold uppercase">get in touch</span>
+          <h2 class="font-syne font-bold text-4xl md:text-5xl mt-4 mb-6">Send us a <span class="text-[#0f5c4b]">message</span></h2>
+          <p class="text-[#4a5b6e] text-lg mb-8">Medicine query, prescription check, or delivery – we reply within 30 min.</p>
+          <div class="flex flex-wrap gap-3">
+            <span class="bg-emerald-50 px-5 py-2 rounded-full text-sm font-semibold text-[#0f5c4b]"><i class="far fa-clock mr-2"></i> response <30min</span>
+            <span class="bg-emerald-50 px-5 py-2 rounded-full text-sm font-semibold text-[#0f5c4b]"><i class="fas fa-lock mr-2"></i> private & secure</span>
+            <span class="bg-emerald-50 px-5 py-2 rounded-full text-sm font-semibold text-[#0f5c4b]"><i class="fas fa-user-md mr-2"></i> reviewed by pharmacist</span>
+          </div>
+        </div>
+        <div class="bg-[#f5f7fa] p-10 rounded-[40px] shadow-2xl reveal delay-2">
+          <h3 class="font-syne font-bold text-2xl mb-6">Make an enquiry</h3>
+          <div class="grid md:grid-cols-2 gap-4 mb-4">
+            <div><label class="block text-xs font-bold uppercase tracking-wide mb-1">full name</label><input type="text" placeholder="Your name" class="w-full p-4 rounded-2xl border border-[#d4af37]/20 bg-white"></div>
+            <div><label class="block text-xs font-bold uppercase tracking-wide mb-1">phone / whatsapp</label><input type="tel" placeholder="0310-XXXXXXX" class="w-full p-4 rounded-2xl border border-[#d4af37]/20 bg-white"></div>
+          </div>
+          <div class="mb-4"><label class="block text-xs font-bold uppercase tracking-wide mb-1">query type</label>
+            <select class="w-full p-4 rounded-2xl border border-[#d4af37]/20 bg-white"><option>Medicine availability</option><option>Home delivery</option><option>Prescription consultation</option></select>
+          </div>
+          <div class="mb-6"><label class="block text-xs font-bold uppercase tracking-wide mb-1">message</label><textarea rows="4" placeholder="List medicines or ask anything..." class="w-full p-4 rounded-2xl border border-[#d4af37]/20 bg-white"></textarea></div>
+          <button class="w-full bg-gradient-to-r from-[#1b4d3e] to-[#0f5c4b] text-white py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">Send message</button>
+        </div>
       </div>
     </div>
-    <div class="form-card">
-      <h3 style="margin-bottom:0.5rem;">Make an enquiry</h3>
-      <p style="color:var(--gray-600); margin-bottom:1.5rem;">Our pharmacist will respond promptly.</p>
-      <div class="input-group">
-        <div class="field"><label>full name</label><input type="text" placeholder="Your name"></div>
-        <div class="field"><label>phone / whatsapp</label><input type="tel" placeholder="0310-XXXXXXX"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#0d1b2a] text-white pt-20 pb-10">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
+        <div>
+          <h3 class="font-syne font-bold text-2xl mb-4">Farhan Pharmacy</h3>
+          <p class="text-white/40 text-sm leading-relaxed">Near Kainat Bus Stop, Rawalpindi. Genuine medicines, expert care since 2005.</p>
+          <div class="flex gap-4 mt-6 text-2xl text-white/40">
+            <i class="fab fa-facebook hover:text-[#d4af37] cursor-pointer"></i>
+            <i class="fab fa-whatsapp hover:text-[#d4af37] cursor-pointer"></i>
+            <i class="fab fa-instagram hover:text-[#d4af37] cursor-pointer"></i>
+          </div>
+        </div>
+        <div><h4 class="font-syne font-semibold text-sm tracking-widest uppercase text-white/40 mb-4">Services</h4><ul class="space-y-2"><li><a href="#" class="text-white/60 hover:text-white transition">Prescription</a></li><li><a href="#" class="text-white/60 hover:text-white transition">Consultation</a></li><li><a href="#" class="text-white/60 hover:text-white transition">Delivery</a></li></ul></div>
+        <div><h4 class="font-syne font-semibold text-sm tracking-widest uppercase text-white/40 mb-4">Categories</h4><ul class="space-y-2"><li><a href="#" class="text-white/60 hover:text-white transition">Antibiotics</a></li><li><a href="#" class="text-white/60 hover:text-white transition">Vitamins</a></li><li><a href="#" class="text-white/60 hover:text-white transition">Diabetes care</a></li></ul></div>
+        <div><h4 class="font-syne font-semibold text-sm tracking-widest uppercase text-white/40 mb-4">Contact</h4><ul class="space-y-2"><li><a href="#" class="text-white/60 hover:text-white transition"><i class="fas fa-map-pin mr-2"></i>Address</a></li><li><a href="tel:+923100878897" class="text-white/60 hover:text-white transition"><i class="fas fa-phone mr-2"></i>0310-0878897</a></li><li><a href="#" class="text-white/60 hover:text-white transition"><i class="far fa-clock mr-2"></i>8AM–midnight</a></li></ul></div>
       </div>
-      <div class="field"><label>query type</label><select><option>Medicine availability</option><option>Home delivery</option><option>Prescription consultation</option></select></div>
-      <div class="field"><label>message</label><textarea rows="4" placeholder="List medicines or ask anything..."></textarea></div>
-      <button class="submit-btn">Send message</button>
+      <div class="border-t border-white/10 pt-8 flex flex-wrap justify-between text-white/30 text-sm">
+        <span>© 2024 Farhan Pharmacy. Rawalpindi, Pakistan.</span>
+        <span>DRAP Licensed · ISO · Govt. Approved</span>
+      </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- footer -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-col"><h2 style="color:white;">Farhan Pharmacy</h2><p>Near Kainat Bus Stop, Rawalpindi. Genuine medicines, expert care since 2005.</p><div style="display:flex; gap:0.8rem;">📘 💬 📸</div></div>
-      <div class="footer-col"><h4>Services</h4><ul><li><a href="#">Prescription</a></li><li><a href="#">Consultation</a></li><li><a href="#">Delivery</a></li></ul></div>
-      <div class="footer-col"><h4>Categories</h4><ul><li><a href="#">Antibiotics</a></li><li><a href="#">Vitamins</a></li><li><a href="#">Diabetes care</a></li></ul></div>
-      <div class="footer-col"><h4>Contact</h4><ul><li><a href="#">📍 Address</a></li><li><a href="tel:+923100878897">📞 0310-0878897</a></li><li><a href="#">⏰ 8AM–midnight</a></li></ul></div>
-    </div>
-    <div class="copyright"><span>© 2024 Farhan Pharmacy. Rawalpindi.</span><span>DRAP Licensed · ISO · Govt. Approved</span></div>
-  </div>
-</footer>
+  <!-- tiny intersection observer for reveal + button demo -->
+  <script>
+    (function() {
+      // reveal on scroll
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+      reveals.forEach(el => observer.observe(el));
 
-<!-- tiny script for interactive demo (button simulation) -->
-<script>
-  // just to make add‑button feedback nice (optional)
-  document.querySelectorAll('.add-btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      this.textContent = '✓';
-      this.style.background = '#c78d4b';
-      setTimeout(() => { this.textContent = '+'; this.style.background = '#0b6e4f'; }, 1000);
-    });
-  });
-  // mobile menu placeholder (toggle not implemented for brevity, but nav is fully responsive)
-</script>
-
+      // product button add feedback
+      document.querySelectorAll('.product-card button, [class*="product"] button').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          this.innerHTML = '<i class="fas fa-check"></i>';
+          this.style.backgroundColor = '#d4af37';
+          setTimeout(() => { this.innerHTML = '<i class="fas fa-plus"></i>'; this.style.backgroundColor = ''; }, 1000);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
