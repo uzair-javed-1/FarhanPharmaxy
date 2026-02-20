@@ -2,79 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Farhan Pharmacy — premium care · Rawalpindi</title>
-  <!-- Tailwind via CDN + necessary extras -->
+  <!-- Tailwind + fonts + font awesome -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- custom font & subtle plugin extensions -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Font awesome 6 (free) for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* tiny extra tweaks — keeping it almost all tailwind */
-    body { font-family: 'Inter', system-ui, sans-serif; }
+    /* custom extras + fixed mobile nav */
+    body { font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; width: 100%; }
     h1, h2, h3, .font-syne { font-family: 'Syne', sans-serif; }
+
+    /* mobile menu – fixed overlay */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 320px;
+      height: 100vh;
+      background: white;
+      z-index: 999;
+      padding: 2rem 1.5rem;
+      box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+      transition: right 0.3s ease-in-out;
+      overflow-y: auto;
+    }
+    .mobile-menu.open { right: 0; }
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(3px);
+      z-index: 998;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+    }
+    .menu-overlay.open { opacity: 1; visibility: visible; }
+
+    /* utility to prevent body scroll when menu open */
+    body.menu-active { overflow: hidden; }
+
     @keyframes gentle-float {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-8px) scale(1.01); }
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-6px)}
     }
     .animate-float { animation: gentle-float 6s ease-in-out infinite; }
-    .animate-float-delay { animation: gentle-float 7s 1s ease-in-out infinite; }
-    /* custom gradient underline */
-    .gradient-underline {
-      position: relative;
-    }
-    .gradient-underline::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0%;
-      height: 3px;
-      background: linear-gradient(90deg, #0f5c4b, #d4af37);
-      transition: width 0.3s ease;
-    }
-    .gradient-underline:hover::after {
-      width: 100%;
-    }
-    /* reveal on scroll (intersection observer) */
+
+    /* fix any overflow issues */
+    img, svg, iframe { max-width: 100%; }
+    .container-custom { max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; }
+    @media (min-width: 768px) { .container-custom { padding: 0 2.5rem; } }
+
+    /* reveal animation (preserved) */
     .reveal {
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s cubic-bezier(0.2,0.9,0.3,1), transform 0.8s cubic-bezier(0.2,0.9,0.3,1);
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
     .delay-1 { transition-delay: 0.1s; }
-    .delay-2 { transition-delay: 0.2s; }
-    .delay-3 { transition-delay: 0.3s; }
   </style>
 </head>
 <body class="bg-[#f5f7fa] text-[#0d1b2a] antialiased">
 
-  <!-- modern navigation – fully responsive, tailwind classes -->
+  <!-- mobile overlay + menu (hidden by default) -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="flex justify-between items-center mb-10">
+      <span class="font-syne font-bold text-xl text-[#0d1b2a]">Farhan Pharmacy</span>
+      <button id="closeMenuBtn" class="text-2xl text-[#4a5b6e]"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="flex flex-col gap-6 text-lg">
+      <li><a href="#services" class="mobile-link block py-2 border-b border-gray-100">Services</a></li>
+      <li><a href="#products" class="mobile-link block py-2 border-b border-gray-100">Products</a></li>
+      <li><a href="#about" class="mobile-link block py-2 border-b border-gray-100">About</a></li>
+      <li><a href="#location" class="mobile-link block py-2 border-b border-gray-100">Location</a></li>
+      <li><a href="#contact" class="mobile-link block py-2 border-b border-gray-100">Contact</a></li>
+    </ul>
+    <div class="mt-10 space-y-4">
+      <a href="https://wa.me/923100878897" target="_blank" class="flex items-center gap-3 bg-[#25D366] text-white px-5 py-3 rounded-full w-full justify-center"><i class="fab fa-whatsapp text-xl"></i> 0310-0878897</a>
+      <a href="#contact" class="block border-2 border-[#0d1b2a] text-center px-5 py-3 rounded-full font-semibold">Book consultation</a>
+    </div>
+  </div>
+
+  <!-- main navigation -->
   <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[#d4af37]/20 px-6 md:px-12 py-4">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <div class="container-custom flex items-center justify-between w-full">
       <!-- logo -->
       <a href="#" class="flex items-center gap-3 group">
-        <div class="w-12 h-12 bg-gradient-to-br from-[#1b4d3e] to-[#0f5c4b] rounded-2xl flex items-center justify-center text-2xl font-bold text-[#d4af37] shadow-xl shadow-emerald-900/20 group-hover:-rotate-3 transition-transform duration-300">
+        <div class="w-12 h-12 bg-gradient-to-br from-[#1b4d3e] to-[#0f5c4b] rounded-2xl flex items-center justify-center text-2xl font-bold text-[#d4af37] shadow-xl shadow-emerald-900/20 group-hover:-rotate-3 transition-transform">
           F
         </div>
         <div class="leading-tight">
           <h2 class="font-syne font-bold text-xl text-[#0d1b2a]">Farhan Pharmacy</h2>
-          <span class="text-[0.65rem] tracking-[0.2em] uppercase text-[#0f5c4b] font-medium">Rawalpindi · est.2005</span>
+          <span class="text-[0.65rem] tracking-[0.2em] uppercase text-[#0f5c4b] font-medium">Rawalpindi · est.2020</span> <!-- updated to 2020 -->
         </div>
       </a>
 
       <!-- desktop menu (hidden on mobile) -->
       <ul class="hidden lg:flex items-center gap-10 text-sm font-medium">
-        <li><a href="#services" class="gradient-underline text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1">Services</a></li>
-        <li><a href="#products" class="gradient-underline text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1">Products</a></li>
-        <li><a href="#about" class="gradient-underline text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1">About</a></li>
-        <li><a href="#location" class="gradient-underline text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1">Location</a></li>
-        <li><a href="#contact" class="gradient-underline text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1">Contact</a></li>
+        <li><a href="#services" class="text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:bg-gradient-to-r after:from-[#0f5c4b] after:to-[#d4af37] after:transition-all hover:after:w-full">Services</a></li>
+        <li><a href="#products" class="text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:bg-gradient-to-r after:from-[#0f5c4b] after:to-[#d4af37] after:transition-all hover:after:w-full">Products</a></li>
+        <li><a href="#about" class="text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:bg-gradient-to-r after:from-[#0f5c4b] after:to-[#d4af37] after:transition-all hover:after:w-full">About</a></li>
+        <li><a href="#location" class="text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:bg-gradient-to-r after:from-[#0f5c4b] after:to-[#d4af37] after:transition-all hover:after:w-full">Location</a></li>
+        <li><a href="#contact" class="text-[#4a5b6e] hover:text-[#0d1b2a] transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:bg-gradient-to-r after:from-[#0f5c4b] after:to-[#d4af37] after:transition-all hover:after:w-full">Contact</a></li>
       </ul>
 
       <!-- right actions -->
@@ -82,89 +115,88 @@
         <a href="https://wa.me/923100878897" target="_blank" class="hidden sm:flex items-center gap-2 bg-[#25D366] text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-green-500/30 hover:shadow-xl hover:-translate-y-1 transition-all">
           <i class="fab fa-whatsapp text-lg"></i> <span>0310-0878897</span>
         </a>
-        <a href="#contact" class="hidden md:block border-2 border-[#0d1b2a] text-[#0d1b2a] px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-[#0d1b2a] hover:text-white transition-all shadow-sm">
+        <a href="#contact" class="hidden md:block border-2 border-[#0d1b2a] text-[#0d1b2a] px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-[#0d1b2a] hover:text-white transition-all">
           Consult
         </a>
-        <!-- mobile menu icon (just placeholder for demo) -->
-        <button class="lg:hidden text-2xl text-[#0d1b2a]">
+        <!-- mobile menu open button -->
+        <button id="menuToggle" class="lg:hidden text-2xl text-[#0d1b2a] p-2">
           <i class="fas fa-bars"></i>
         </button>
       </div>
     </div>
   </nav>
 
-  <!-- HERO section – premium fancy layout -->
-  <section class="relative overflow-hidden pt-20 pb-28 md:py-32 bg-gradient-to-br from-white via-[#f5f7fa] to-white">
-    <!-- abstract glowing circles -->
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute top-20 left-1/4 w-96 h-96 bg-emerald-700/5 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-20 right-1/4 w-80 h-80 bg-amber-600/5 rounded-full blur-3xl"></div>
+  <!-- HERO section – fully responsive, no overflow -->
+  <section class="relative overflow-hidden pt-16 pb-20 md:py-28 bg-gradient-to-br from-white via-[#f5f7fa] to-white w-full">
+    <!-- decorative blurs (hidden on small screens to avoid overflow) -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute top-20 -left-20 w-80 h-80 bg-emerald-700/5 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 -right-20 w-80 h-80 bg-amber-600/5 rounded-full blur-3xl"></div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <!-- left -->
-        <div class="reveal visible"> <!-- visible for demo, normally js handles -->
-          <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs tracking-widest font-semibold px-4 py-2 rounded-full mb-8">
+    <div class="container-custom relative z-10 w-full">
+      <div class="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
+        <!-- left column -->
+        <div class="reveal visible w-full max-w-full">
+          <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs tracking-widest font-semibold px-4 py-2 rounded-full mb-6 md:mb-8">
             <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span></span>
             OPEN NOW · KAINAT STOP, RAWALPINDI
           </div>
-          <h1 class="font-syne font-extrabold text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-[#0d1b2a]">
+          <h1 class="font-syne font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-[#0d1b2a] break-words">
             Precision care <br/>for <span class="bg-gradient-to-r from-[#0f5c4b] to-[#d4af37] bg-clip-text text-transparent">every</span> prescription
           </h1>
-          <p class="text-lg text-[#4a5b6e] max-w-xl mt-8 leading-relaxed">
-            Farhan Pharmacy — certified medicines, expert pharmacists, and same‑day home delivery across Rawalpindi. Trusted since 2005.
+          <p class="text-base md:text-lg text-[#4a5b6e] max-w-xl mt-6 md:mt-8 leading-relaxed">
+            Farhan Pharmacy — certified medicines, expert pharmacists, and same‑day home delivery across Rawalpindi. Trusted since 2020.
           </p>
-          <div class="flex flex-wrap gap-4 mt-10">
-            <a href="#products" class="bg-gradient-to-r from-[#1b4d3e] to-[#0f5c4b] text-white px-8 py-4 rounded-full font-semibold shadow-xl shadow-emerald-900/30 hover:shadow-2xl hover:-translate-y-1 transition-all">
-              Browse medicines <i class="fas fa-arrow-right ml-2 text-sm"></i>
+          <div class="flex flex-wrap gap-3 md:gap-4 mt-8 md:mt-10">
+            <a href="#products" class="bg-gradient-to-r from-[#1b4d3e] to-[#0f5c4b] text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold shadow-xl shadow-emerald-900/30 hover:shadow-2xl hover:-translate-y-1 transition-all text-sm md:text-base">
+              Browse medicines <i class="fas fa-arrow-right ml-2 text-xs md:text-sm"></i>
             </a>
-            <a href="https://wa.me/923100878897" target="_blank" class="border border-[#0f5c4b]/30 text-[#0d1b2a] px-8 py-4 rounded-full font-semibold hover:bg-[#0f5c4b] hover:text-white hover:border-transparent transition-all">
+            <a href="https://wa.me/923100878897" target="_blank" class="border border-[#0f5c4b]/30 text-[#0d1b2a] px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold hover:bg-[#0f5c4b] hover:text-white hover:border-transparent transition-all text-sm md:text-base">
               <i class="fab fa-whatsapp mr-2"></i>WhatsApp order
             </a>
           </div>
-          <!-- trust badges -->
-          <div class="flex gap-12 mt-16">
-            <div><span class="font-syne font-bold text-3xl text-[#0d1b2a]">18+</span><span class="block text-xs tracking-widest text-[#4a5b6e] uppercase">years trusted</span></div>
-            <div><span class="font-syne font-bold text-3xl text-[#0d1b2a]">5k+</span><span class="block text-xs tracking-widest text-[#4a5b6e] uppercase">products</span></div>
-            <div><span class="font-syne font-bold text-3xl text-[#0d1b2a]">50k+</span><span class="block text-xs tracking-widest text-[#4a5b6e] uppercase">families</span></div>
-            <div><span class="font-syne font-bold text-3xl text-[#0d1b2a]">4.9★</span><span class="block text-xs tracking-widest text-[#4a5b6e] uppercase">rating</span></div>
+          <!-- trust stats - flex wrap -->
+          <div class="flex flex-wrap gap-6 sm:gap-8 md:gap-12 mt-10 md:mt-16">
+            <div><span class="font-syne font-bold text-2xl md:text-3xl text-[#0d1b2a]">18+</span><span class="block text-[0.6rem] md:text-xs tracking-widest text-[#4a5b6e] uppercase">years trusted</span></div>
+            <div><span class="font-syne font-bold text-2xl md:text-3xl text-[#0d1b2a]">5k+</span><span class="block text-[0.6rem] md:text-xs tracking-widest text-[#4a5b6e] uppercase">products</span></div>
+            <div><span class="font-syne font-bold text-2xl md:text-3xl text-[#0d1b2a]">50k+</span><span class="block text-[0.6rem] md:text-xs tracking-widest text-[#4a5b6e] uppercase">families</span></div>
+            <div><span class="font-syne font-bold text-2xl md:text-3xl text-[#0d1b2a]">4.9★</span><span class="block text-[0.6rem] md:text-xs tracking-widest text-[#4a5b6e] uppercase">rating</span></div>
           </div>
         </div>
 
-        <!-- right - fancy card with floating elements -->
-        <div class="relative lg:ml-10">
-          <div class="bg-white/70 backdrop-blur-xl border border-[#d4af37]/20 rounded-[40px] p-8 shadow-2xl animate-float">
-            <div class="space-y-6">
-              <div class="flex items-start gap-4">
-                <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl text-[#0f5c4b] border border-emerald-200">🏥</div>
-                <div><h4 class="font-syne font-bold text-xl">DRAP licensed</h4><p class="text-[#4a5b6e]">Government certified · every medicine verified</p></div>
+        <!-- right column (hero card) - also responsive -->
+        <div class="relative mt-8 lg:mt-0 w-full max-w-full">
+          <div class="bg-white/70 backdrop-blur-xl border border-[#d4af37]/20 rounded-[32px] md:rounded-[40px] p-6 md:p-8 shadow-2xl animate-float">
+            <div class="space-y-4 md:space-y-6">
+              <div class="flex items-start gap-3 md:gap-4">
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-xl md:text-2xl text-[#0f5c4b] border border-emerald-200 shrink-0">🏥</div>
+                <div><h4 class="font-syne font-bold text-lg md:text-xl">DRAP licensed</h4><p class="text-[#4a5b6e] text-sm md:text-base">Government certified · every medicine verified</p></div>
               </div>
-              <div class="flex items-start gap-4">
-                <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl text-[#0f5c4b] border border-emerald-200">🚚</div>
-                <div><h4 class="font-syne font-bold text-xl">Same‑day delivery</h4><p class="text-[#4a5b6e]">Rawalpindi‑wide, often within 2 hours</p></div>
+              <div class="flex items-start gap-3 md:gap-4">
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-xl md:text-2xl text-[#0f5c4b] border border-emerald-200 shrink-0">🚚</div>
+                <div><h4 class="font-syne font-bold text-lg md:text-xl">Same‑day delivery</h4><p class="text-[#4a5b6e] text-sm md:text-base">Rawalpindi‑wide, often within 2 hours</p></div>
               </div>
-              <div class="flex items-start gap-4">
-                <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl text-[#0f5c4b] border border-emerald-200">⏰</div>
-                <div><h4 class="font-syne font-bold text-xl">8 AM – midnight · 7 days</h4><p class="text-[#4a5b6e]">WhatsApp orders 24/7</p></div>
+              <div class="flex items-start gap-3 md:gap-4">
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-xl md:text-2xl text-[#0f5c4b] border border-emerald-200 shrink-0">⏰</div>
+                <div><h4 class="font-syne font-bold text-lg md:text-xl">8 AM – midnight · 7 days</h4><p class="text-[#4a5b6e] text-sm md:text-base">WhatsApp orders 24/7</p></div>
               </div>
-              <div class="flex items-start gap-4">
-                <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl text-[#0f5c4b] border border-emerald-200">💬</div>
-                <div><h4 class="font-syne font-bold text-xl">WhatsApp direct</h4><p class="text-[#4a5b6e]"><span class="font-bold text-[#0d1b2a]">0310-0878897</span> – send prescription</p></div>
+              <div class="flex items-start gap-3 md:gap-4">
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-xl md:text-2xl text-[#0f5c4b] border border-emerald-200 shrink-0">💬</div>
+                <div><h4 class="font-syne font-bold text-lg md:text-xl">WhatsApp direct</h4><p class="text-[#4a5b6e] text-sm md:text-base"><span class="font-bold text-[#0d1b2a]">0310-0878897</span> – send prescription</p></div>
               </div>
             </div>
           </div>
-          <!-- floating extra badge -->
-          <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl px-6 py-4 shadow-xl border border-[#d4af37]/30 flex items-center gap-3 animate-float-delay">
+          <!-- floating badge - hidden on small if needed -->
+          <div class="hidden sm:flex absolute -bottom-4 md:-bottom-6 -left-2 md:-left-6 bg-white rounded-2xl px-4 md:px-6 py-3 md:py-4 shadow-xl border border-[#d4af37]/30 items-center gap-3 animate-float-delay">
             <div class="w-3 h-3 bg-emerald-600 rounded-full animate-pulse"></div>
-            <span class="font-semibold text-sm">100% genuine guarantee</span>
+            <span class="font-semibold text-xs md:text-sm">100% genuine guarantee</span>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- SERVICES section -->
+ <!-- SERVICES section -->
   <section id="services" class="py-28 bg-white">
     <div class="max-w-7xl mx-auto px-6 md:px-12">
       <div class="text-center max-w-3xl mx-auto reveal">
@@ -394,28 +426,51 @@
     </div>
   </footer>
 
-  <!-- tiny intersection observer for reveal + button demo -->
+  <!-- mobile menu script (fixes toggle + close) -->
   <script>
     (function() {
-      // reveal on scroll
-      const reveals = document.querySelectorAll('.reveal');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-      }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
-      reveals.forEach(el => observer.observe(el));
+      const menuToggle = document.getElementById('menuToggle');
+      const closeBtn = document.getElementById('closeMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('menuOverlay');
+      const body = document.body;
 
-      // product button add feedback
-      document.querySelectorAll('.product-card button, [class*="product"] button').forEach(btn => {
-        btn.addEventListener('click', function(e) {
+      function openMenu() {
+        mobileMenu.classList.add('open');
+        overlay.classList.add('open');
+        body.classList.add('menu-active');
+      }
+      function closeMenu() {
+        mobileMenu.classList.remove('open');
+        overlay.classList.remove('open');
+        body.classList.remove('menu-active');
+      }
+
+      if (menuToggle) menuToggle.addEventListener('click', openMenu);
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+      if (overlay) overlay.addEventListener('click', closeMenu);
+
+      // close mobile menu when clicking a link
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', (e) => {
           e.preventDefault();
-          this.innerHTML = '<i class="fas fa-check"></i>';
-          this.style.backgroundColor = '#d4af37';
-          setTimeout(() => { this.innerHTML = '<i class="fas fa-plus"></i>'; this.style.backgroundColor = ''; }, 1000);
+          const targetId = link.getAttribute('href');
+          if (targetId && targetId !== '#') {
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+          }
+          closeMenu();
         });
       });
+
+      // reveal observer (optional but keep)
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
+      }, { threshold: 0.1 });
+      reveals.forEach(el => observer.observe(el));
     })();
   </script>
+
 </body>
 </html>
